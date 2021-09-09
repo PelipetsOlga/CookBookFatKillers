@@ -1,9 +1,10 @@
+import 'package:cook_book_fat_killers/stubs.dart';
 import 'package:flutter/material.dart';
 
 import 'base_widgets.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({required this.title}) : super();
 
   final String title;
 
@@ -42,72 +43,11 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             _getTopTabs(),
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                    Text('You have pushed the button this many times:'),
-                  ],
-                ),
+              child: ListView.builder(
+                itemCount: stubItems.length,
+                itemBuilder: (context, index) {
+                  return buildHomeListTile(index);
+                },
               ),
             ),
           ],
@@ -117,19 +57,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Padding _getTopTabs() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          buildEatingTab('Завтрак', Colors.green),
-          buildEatingTab('Перекус', Colors.pinkAccent),
-          buildEatingTab('Обід', Colors.orangeAccent),
-          buildEatingTab('Вечеря', Colors.lightBlueAccent),
-          buildEatingTab('Free', Colors.blueGrey),
-        ],
+  Widget _getTopTabs() {
+    return SingleChildScrollView(scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            buildEatingTab('Завтрак', Colors.green),
+            buildEatingTab('Перекус', Colors.pinkAccent),
+            buildEatingTab('Обід', Colors.orangeAccent),
+            buildEatingTab('Вечеря', Colors.lightBlueAccent),
+            buildEatingTab('Free', Colors.blueGrey),
+          ],
+        ),
       ),
     );
   }
