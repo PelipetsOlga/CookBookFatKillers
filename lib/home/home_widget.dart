@@ -1,7 +1,8 @@
+import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/stubs.dart';
 import 'package:flutter/material.dart';
 
-import 'base_widgets.dart';
+import '../widgets/base_widgets.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({required this.title}) : super();
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(widget.title),
       ),
       body: Container(
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               child: ListView.builder(
                 itemCount: stubItems.length,
                 itemBuilder: (context, index) {
-                  return buildHomeListTile(index);
+                  return buildHomeListTile(context, index);
                 },
               ),
             ),
@@ -58,7 +60,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getTopTabs() {
-    return SingleChildScrollView(scrollDirection: Axis.horizontal,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 4),
         child: Row(
@@ -79,10 +82,14 @@ class _HomePageState extends State<HomePage> {
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Рецепти'),
-        BottomNavigationBarItem(icon: Icon(Icons.star_outline), label: 'Закладки'),
-        BottomNavigationBarItem(icon: Icon(Icons.filter_alt_outlined), label: 'Пошук'),
-        BottomNavigationBarItem(icon: Icon(Icons.help_outline), label: 'Допомога'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined), label: 'Рецепти'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.star_outline), label: 'Закладки'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.filter_alt_outlined), label: 'Пошук'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.help_outline), label: 'Допомога'),
       ],
       currentIndex: _selectedBottomMenuIndex,
       selectedItemColor: Colors.amber[800],

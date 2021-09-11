@@ -1,7 +1,7 @@
-import 'package:cook_book_fat_killers/theme.dart';
+import 'package:cook_book_fat_killers/common/theme.dart';
 import 'package:flutter/material.dart';
 
-import 'widgets/home_widget.dart';
+import 'common/nav.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: primaryColor,
       ),
-      home: HomePage(title: 'CookBook from Fat Killers'),
+      routes: AppNavigation.getNavigationRoutes(),
     );
   }
 }
