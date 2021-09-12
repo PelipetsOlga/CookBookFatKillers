@@ -28,6 +28,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.title),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, AppNavigation.FILTER);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(Icons.filter_alt_outlined),
+            ),
+          )
+        ],
       ),
       body: Container(
         width: double.infinity,
@@ -85,9 +96,7 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined), label: 'Рецепти'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.star_outline), label: 'Закладки'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.filter_alt_outlined), label: 'Пошук'),
+            icon: Icon(Icons.favorite_border), label: 'Закладки'),
         BottomNavigationBarItem(
             icon: Icon(Icons.help_outline), label: 'Допомога'),
       ],

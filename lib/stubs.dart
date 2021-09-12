@@ -23,3 +23,20 @@ final stubEatingItems =
 
 final stubFoodImages =
     List<String>.generate(10000, (i) => foodImages[Random().nextInt(3)]);
+
+final Map<int, String> stubFilters = {
+  100: 'Творог',
+  101: 'Сир',
+  102: 'Куряче філе',
+  103: 'Рисова мука',
+  104: 'Яйце',
+  105: 'Кабачок',
+  106: 'Огірок',
+  107: 'Тунець',
+  108: 'Мука',
+  109: 'Морква',
+  110: 'Олія',
+  111: 'Горіхи',
+  112: 'Риба',
+  113: 'Какао',
+};
