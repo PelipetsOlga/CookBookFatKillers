@@ -16,16 +16,16 @@ class RecipeModel {
   EatingTypeBase eatingType;
   MealQuantityModel mealQuantityModel;
 
-  RecipeModel(
-    this.recipeId,
-    this.title,
-    this.smallPhotoUrl,
-    this.bigPhotoUrl,
-    this.isFavourite,
-    this.isFree,
-    this.ingredientsModel,
-    this.stepsModel,
-    this.eatingType,
-    this.mealQuantityModel,
-  );
+  RecipeModel({
+    required this.recipeId,
+    required this.title,
+    required this.smallPhotoUrl,
+    required this.bigPhotoUrl,
+    required this.isFavourite,
+    required this.isFree,
+    required this.ingredientsModel,
+    required this.stepsModel,
+    required this.eatingType,
+    required this.mealQuantityModel,
+  });
 }

@@ -6,9 +6,8 @@ class IngredientsModel {
 }
 
 class IngredientModel {
-  int id;
   String description;
   List<String> tags;
 
-  IngredientModel(this.id, this.description, this.tags);
+  IngredientModel(this.description, this.tags);
 }

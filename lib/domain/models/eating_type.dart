@@ -11,7 +11,7 @@ class BreakfastEatingTypeModel extends EatingTypeBase {
   EatingType eatingType = EatingType.breakfast;
 
   @override
-  String title = 'Breakfast';
+  String title = 'breakfast';
 }
 
 class LunchEatingTypeModel extends EatingTypeBase {
@@ -20,7 +20,7 @@ class LunchEatingTypeModel extends EatingTypeBase {
   EatingType eatingType = EatingType.lunch;
 
   @override
-  String title = 'Lunch';
+  String title = 'lunch';
 }
 
 class DinnerEatingTypeModel extends EatingTypeBase {
@@ -29,7 +29,7 @@ class DinnerEatingTypeModel extends EatingTypeBase {
   EatingType eatingType = EatingType.dinner;
 
   @override
-  String title = 'Dinner';
+  String title = 'dinner';
 }
 
 class SupperEatingTypeModel extends EatingTypeBase {
@@ -38,5 +38,5 @@ class SupperEatingTypeModel extends EatingTypeBase {
   EatingType eatingType = EatingType.supper;
 
   @override
-  String title = 'Supper';
+  String title = 'supper';
 }
