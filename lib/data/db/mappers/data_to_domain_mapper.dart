@@ -15,11 +15,20 @@ extension Mapper on Recipe {
         smallPhotoUrl: this.smallPhotoUrl,
         bigPhotoUrl: this.bigPhotoUrl,
         isFavourite: false,
-        isFree: isFree,
+        isFree: toIsFree(),
         ingredientsModel: toIngredientsModel(),
         stepsModel: toStepsModel(),
         eatingType: toEatingTypeModel(),
         mealQuantityModel: toMealQuantityModel());
+  }
+
+  bool toIsFree() {
+    switch (this.isFree) {
+      case 'true':
+        return true;
+      default:
+        return false;
+    }
   }
 
   EatingTypeBase toEatingTypeModel() {

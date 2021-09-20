@@ -47,7 +47,7 @@ Recipe _recipeData = Recipe(
     title: 'title',
     smallPhotoUrl: 'smallPhotoUrl',
     bigPhotoUrl: 'bigPhotoUrl',
-    isFree: true,
+    isFree: 'true',
     ingredients: 'eggs|chease|watermelon',
     ingredientsTags: '|italian food;snack|',
     steps: 'cut food|boil water|fry|stir',

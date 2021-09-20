@@ -1,7 +1,6 @@
 import 'package:cook_book_fat_killers/data/db/mappers/utils.dart';
 import 'package:cook_book_fat_killers/data/db/models/recipe_data.dart';
 import 'package:cook_book_fat_killers/domain/models/Ingredients.dart';
-import 'package:cook_book_fat_killers/domain/models/cooking_steps.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 
 extension Mapper on RecipeModel {
@@ -11,7 +10,7 @@ extension Mapper on RecipeModel {
         title: this.title,
         smallPhotoUrl: this.smallPhotoUrl,
         bigPhotoUrl: this.bigPhotoUrl,
-        isFree: this.isFree,
+        isFree: this.isFree ? 'true' : 'false',
         ingredients: this._toIngredients(),
         ingredientsTags: this._toIngredientsTags(),
         steps: this._toSteps(),
@@ -74,7 +73,9 @@ extension Mapper on RecipeModel {
   }
 
   String _toStepsTags() {
-    return this.stepsModel.tags
+    return this
+        .stepsModel
+        .tags
         .fold(
             '',
             (previousValue, element) =>

@@ -3,7 +3,7 @@ class Recipe {
   String title;
   String smallPhotoUrl;
   String bigPhotoUrl;
-  bool isFree;
+  String isFree;
   String ingredients;
   String ingredientsTags;
   String steps;
@@ -79,7 +79,7 @@ class Recipe {
     title: map['title'] ?? '',
     smallPhotoUrl: map['smallPhotoUrl'] ?? '',
     bigPhotoUrl: map['bigPhotoUrl'] ?? '',
-    isFree: map['isFree'] ?? false,
+    isFree: map['isFree'] ?? 'false',
     ingredients: map['ingredients'] ?? '',
     ingredientsTags: map['ingredientsTags'] ?? '',
     steps: map['steps'] ?? '',
