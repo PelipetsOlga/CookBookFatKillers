@@ -1,19 +1,23 @@
 import 'package:cook_book_fat_killers/common/theme.dart';
 import 'package:flutter/material.dart';
+import 'di/di.dart' as di;
 
 import 'common/nav.dart';
 import 'data/db/repository/book_repository_db.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  BooksRepositoryDb repository = BooksRepositoryDb();
+  // BooksRepositoryDb repository = BooksRepositoryDb();
 
   @override
   Widget build(BuildContext context) {
-    repository.mockNewDb().then((_) => print('all is done'));
+    // repository.mockNewDb().then((_) => print('all is done'));
+    // repository.init().then((_) => print('db is inited'));
 
     return MaterialApp(
       title: 'CookBook from Fat Killers',

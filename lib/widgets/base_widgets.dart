@@ -1,4 +1,5 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
+import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/stubs.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ Widget buildEatingTab(String eatingTitle, Color backgroundColor,
   );
 }
 
-ListTile buildHomeListTile(BuildContext context, int index) {
+ListTile buildHomeListTile(BuildContext context, RecipeModel recipeModel) {
   return ListTile(
     title: GestureDetector(
       onTap: () {
@@ -34,7 +35,7 @@ ListTile buildHomeListTile(BuildContext context, int index) {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: Image.asset(
-              stubFoodImages[index],
+              recipeModel.smallPhotoUrl,
               width: 100,
               height: 100,
             ),
@@ -44,8 +45,8 @@ ListTile buildHomeListTile(BuildContext context, int index) {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                buildEatingTab(stubEatingItems[index],
-                    stubColorEating[stubEatingItems[index]]!,
+                buildEatingTab(stubEatingItems[0],
+                    stubColorEating[stubEatingItems[0]]!,
                     padding: 4, fontSize: 12),
                 Container(
                   width: double.infinity,
@@ -54,7 +55,7 @@ ListTile buildHomeListTile(BuildContext context, int index) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        stubItems[index],
+                        recipeModel.title,
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),

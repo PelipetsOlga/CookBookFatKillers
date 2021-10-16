@@ -10,7 +10,7 @@ class AppNavigation {
 
   static Map<String, WidgetBuilder> getNavigationRoutes() {
     return <String, WidgetBuilder>{
-      AppNavigation.HOME: (_) => HomePage(title: 'CookBook'),
+      AppNavigation.HOME: (_) => HomePage(),
       AppNavigation.RECIPE: (_) => RecipeWidget(),
       AppNavigation.FILTER: (_) => FilterWidget(),
     };
