@@ -1,11 +1,10 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
 import 'package:cook_book_fat_killers/widgets/base_widgets.dart';
+import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:cook_book_fat_killers/stubs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/base_widgets.dart';
 
-import '../stubs.dart';
 import 'bloc/home_cubit.dart';
 import 'bloc/home_state.dart';
 
@@ -19,8 +18,8 @@ class CookbookWidget extends StatelessWidget {
         return _cookBookView(state.cookBook);
       } else if (state is CookBookError) {
         return Center(child: Text(state.message));
-      } else //if (state is CookBookLoading)
-          {
+      } else {
+        //if (state is CookBookLoading)
         return _loadingIndicator();
       }
     });
@@ -28,15 +27,9 @@ class CookbookWidget extends StatelessWidget {
 
   Widget _cookBookView(CookBook cookBook) {
     return Container(
+      color: colorMainBackground,
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          colorFilter: ColorFilter.mode(Colors.white54, BlendMode.lighten),
-          image: AssetImage("assets/base_images/food_background.png"),
-          fit: BoxFit.cover,
-        ),
-      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,11 +58,11 @@ Widget _getTopTabs() {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          buildEatingTab('Завтрак', Colors.green),
-          buildEatingTab('Перекус', Colors.pinkAccent),
-          buildEatingTab('Обід', Colors.orangeAccent),
-          buildEatingTab('Вечеря', Colors.lightBlueAccent),
-          buildEatingTab('Free', Colors.blueGrey),
+          buildEatingTab('Завтрак', colorBreakfast),
+          buildEatingTab('Перекус', colorLunch),
+          buildEatingTab('Обід', colorDinner),
+          buildEatingTab('Вечеря', colorSupper),
+          buildEatingTab('Free', colorFree),
         ],
       ),
     ),

@@ -1,3 +1,4 @@
+import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/filter_screen/filter_widget.dart';
 import 'package:cook_book_fat_killers/home_screen/home_widget.dart';
 import 'package:cook_book_fat_killers/recipe_screen/recipe_widget.dart';
@@ -15,4 +16,10 @@ class AppNavigation {
       AppNavigation.FILTER: (_) => FilterWidget(),
     };
   }
+}
+
+class RecipeScreenBundle{
+  RecipeModel recipeModel;
+
+  RecipeScreenBundle({required this.recipeModel});
 }
