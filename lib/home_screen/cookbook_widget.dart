@@ -1,4 +1,5 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
+import 'package:cook_book_fat_killers/home_screen/top_choice_widget.dart';
 import 'package:cook_book_fat_killers/widgets/base_widgets.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class CookbookWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _getTopTabs(),
+          TopChoiceWidget(),
           Expanded(
             child: ListView.builder(
               itemCount: cookBook.recipes.length,
@@ -47,26 +48,6 @@ class CookbookWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _getTopTabs() {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Padding(
-      padding: const EdgeInsets.only(bottom: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          buildEatingTab('Завтрак', colorBreakfast),
-          buildEatingTab('Перекус', colorLunch),
-          buildEatingTab('Обід', colorDinner),
-          buildEatingTab('Вечеря', colorSupper),
-          buildEatingTab('Free', colorFree),
-        ],
-      ),
-    ),
-  );
 }
 
 Widget _loadingIndicator() {

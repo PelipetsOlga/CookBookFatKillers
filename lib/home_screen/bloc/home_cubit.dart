@@ -13,7 +13,7 @@ class CookBookCubit extends Cubit<CookBookState> {
 
     emit(CookBookLoading());
 
-    final failureOrCookBook = await booksRepository.getCookBook();
+    final failureOrCookBook = await booksRepository.getCookBook(isFree: true);
     failureOrCookBook.fold(
       (failure) => emit(CookBookError(message: _mapFailureToMessage(failure))),
       (cookbook) => emit(CookBookLoaded(cookbook)),

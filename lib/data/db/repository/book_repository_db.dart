@@ -97,6 +97,18 @@ class BooksRepositoryDb extends BooksRepository {
     return recipesList;
   }
 
+  Future<List<Recipe>> getFreeRecipes() async {
+    await init();
+    final List<Map<String, dynamic>> recipesMapList = await _database!
+        .query(_recipesTable, where: _columnIsFree, whereArgs: [true]);
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('getAllRecipes: $map');
+    });
+    return recipesList;
+  }
+
   //INSERT
   Future<Recipe> insertRecipe(Recipe recipe) async {
     Database db = await this.database;
@@ -119,12 +131,17 @@ class BooksRepositoryDb extends BooksRepository {
   }
 
   @override
-  Future<Either<Failure,CookBook>> getCookBook(
-      {bool isFree = true, bool isFiltered = false}) async {
-    List<Recipe> allRecipesData = await getAllRecipes();
+  Future<Either<Failure, CookBook>> getCookBook(
+      {bool isFree = false, bool isFiltered = false}) async {
+    List<Recipe> allRecipesData =
+        await (isFree ? getAllRecipes() : getFreeRecipes());
     List<RecipeModel> recipes =
         allRecipesData.map((e) => e.toDomain()).toList();
-    //todo add error handling Left
+    // if (allRecipesData.isEmpty) {
+    //   return Left(DbFailure());
+    // } else {
+    //   return Right(CookBook(recipes: recipes, isFree: true, isFiltered: false));
+    // }
     return Right(CookBook(recipes: recipes, isFree: true, isFiltered: false));
   }
 }
