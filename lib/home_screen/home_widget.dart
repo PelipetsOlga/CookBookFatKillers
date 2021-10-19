@@ -25,29 +25,49 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CookBookCubit>(
-        create: (context) =>
-            CookBookCubit(booksRepository: sl<BooksRepository>())
-              ..loadCookBook(topChoice),
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text('CookBook Fat Killers'),
-            actions: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, AppNavigation.FILTER);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(Icons.filter_alt_outlined),
-                ),
-              )
-            ],
-          ),
-          body: CookbookWidget(), // This trailing
-          bottomNavigationBar: _buildBottomNavigationBar(),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(_getAppBarTitle()),
+        actions: _selectedBottomMenuIndex != 2
+            ? [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppNavigation.FILTER);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Icon(Icons.filter_alt_outlined),
+                  ),
+                )
+              ]
+            : [],
+      ),
+      body: _getBody(), // This trailing
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  String _getAppBarTitle() {
+    if (_selectedBottomMenuIndex == 0) {
+      return 'CookBook Fat Killers';
+    } else if (_selectedBottomMenuIndex == 1) {
+      return 'Favourites';
+    } else {
+      //if (_selectedBottomMenuIndex==2)
+      return 'Help';
+    }
+  }
+
+  Widget _getBody() {
+    if (_selectedBottomMenuIndex == 0) {
+      return _getHomeTabContent();
+    } else if (_selectedBottomMenuIndex == 1) {
+      return _getFavouritesTabContent();
+    } else {
+      //if (_selectedBottomMenuIndex==2)
+      return _getHelpTabContent();
+    }
   }
 
   BottomNavigationBar _buildBottomNavigationBar() {
@@ -64,6 +84,26 @@ class _HomePageState extends State<HomePage> {
       selectedItemColor: Colors.amber[800],
       unselectedItemColor: Colors.grey,
       onTap: _onItemTapped,
+    );
+  }
+
+  Widget _getHomeTabContent() {
+    return BlocProvider<CookBookCubit>(
+      create: (context) => CookBookCubit(booksRepository: sl<BooksRepository>())
+        ..loadCookBook(topChoice),
+      child: CookbookWidget(),
+    );
+  }
+
+  Widget _getFavouritesTabContent() {
+    return Center(
+      child: Text('Favourites screen'),
+    );
+  }
+
+  Widget _getHelpTabContent() {
+    return Center(
+      child: Text('Help screen'),
     );
   }
 }
