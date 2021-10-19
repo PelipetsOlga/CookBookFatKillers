@@ -1,5 +1,7 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
+import 'package:cook_book_fat_killers/domain/models/book.dart';
+import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
 import 'package:cook_book_fat_killers/home_screen/cookbook_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/home_cubit.dart';
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedBottomMenuIndex = 0;
+  TopChoiceType topChoice = TopChoiceType.all;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -23,11 +25,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider<CookBookCubit>(
-              create: (context) => sl<CookBookCubit>()..loadCookBook())
-        ],
+    return BlocProvider<CookBookCubit>(
+        create: (context) =>
+            CookBookCubit(booksRepository: sl<BooksRepository>())
+              ..loadCookBook(topChoice),
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,

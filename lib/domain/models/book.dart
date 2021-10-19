@@ -15,3 +15,5 @@ class CookBook {
     required this.isFiltered,
   });
 }
+
+enum TopChoiceType { all, breakfast, lunch, dinner, supper, free }

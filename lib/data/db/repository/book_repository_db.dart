@@ -100,11 +100,67 @@ class BooksRepositoryDb extends BooksRepository {
   Future<List<Recipe>> getFreeRecipes() async {
     await init();
     final List<Map<String, dynamic>> recipesMapList = await _database!
-        .query(_recipesTable, where: _columnIsFree, whereArgs: [true]);
+        .query(_recipesTable, where: '$_columnIsFree = ?', whereArgs: [true]);
     final List<Recipe> recipesList = [];
     recipesMapList.forEach((map) {
       recipesList.add(Recipe.fromMap(map));
-      print('getAllRecipes: $map');
+      print('getFreeRecipes: $map');
+    });
+    return recipesList;
+  }
+
+  Future<List<Recipe>> getBreakfastRecipes() async {
+    await init();
+    final List<Map<String, dynamic>> recipesMapList = await _database!.query(
+        _recipesTable,
+        where: '$_columnEatingType = ?',
+        whereArgs: ['breakfast']);
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('getBreakfastRecipes: $map');
+    });
+    return recipesList;
+  }
+
+  Future<List<Recipe>> getLunchRecipes() async {
+    await init();
+    final List<Map<String, dynamic>> recipesMapList = await _database!.query(
+        _recipesTable,
+        where: '$_columnEatingType = ?',
+        whereArgs: ['lunch']);
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('getLunchRecipes: $map');
+    });
+    return recipesList;
+  }
+
+  Future<List<Recipe>> getDinnerRecipes() async {
+    await init();
+    final List<Map<String, dynamic>> recipesMapList = await _database!.query(
+        _recipesTable,
+        where: '$_columnEatingType = ?',
+        whereArgs: ['dinner']);
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('getDinnerRecipes: $map');
+    });
+    return recipesList;
+  }
+
+  Future<List<Recipe>> getSupperRecipes() async {
+    await init();
+    final List<Map<String, dynamic>> recipesMapList = await _database!.query(
+        _recipesTable,
+        where: '$_columnEatingType = ?',
+        whereArgs: ['supper']);
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('getSupperRecipes: $map');
     });
     return recipesList;
   }
@@ -132,9 +188,21 @@ class BooksRepositoryDb extends BooksRepository {
 
   @override
   Future<Either<Failure, CookBook>> getCookBook(
-      {bool isFree = false, bool isFiltered = false}) async {
-    List<Recipe> allRecipesData =
-        await (isFree ? getAllRecipes() : getFreeRecipes());
+      {required TopChoiceType topChoiceType}) async {
+    late List<Recipe> allRecipesData;
+    if (topChoiceType == TopChoiceType.all) {
+      allRecipesData = await getAllRecipes();
+    } else if (topChoiceType == TopChoiceType.breakfast) {
+      allRecipesData = await getBreakfastRecipes();
+    } else if (topChoiceType == TopChoiceType.lunch) {
+      allRecipesData = await getLunchRecipes();
+    } else if (topChoiceType == TopChoiceType.dinner) {
+      allRecipesData = await getDinnerRecipes();
+    } else if (topChoiceType == TopChoiceType.supper) {
+      allRecipesData = await getSupperRecipes();
+    } else if (topChoiceType == TopChoiceType.free) {
+      allRecipesData = await getFreeRecipes();
+    }
     List<RecipeModel> recipes =
         allRecipesData.map((e) => e.toDomain()).toList();
     // if (allRecipesData.isEmpty) {

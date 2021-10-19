@@ -1,4 +1,5 @@
 import 'package:cook_book_fat_killers/common/error/failure.dart';
+import 'package:cook_book_fat_killers/domain/models/book.dart';
 import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
 import 'package:cook_book_fat_killers/home_screen/bloc/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,12 +9,14 @@ class CookBookCubit extends Cubit<CookBookState> {
 
   CookBookCubit({required this.booksRepository}) : super(CookBookEmpty());
 
-  void loadCookBook() async {
+  void loadCookBook(TopChoiceType type) async {
     if (state is CookBookLoading) return;
 
     emit(CookBookLoading());
 
-    final failureOrCookBook = await booksRepository.getCookBook(isFree: true);
+    final failureOrCookBook =
+        await booksRepository.getCookBook(topChoiceType: type);
+
     failureOrCookBook.fold(
       (failure) => emit(CookBookError(message: _mapFailureToMessage(failure))),
       (cookbook) => emit(CookBookLoaded(cookbook)),

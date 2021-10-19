@@ -1,37 +1,25 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:equatable/equatable.dart';
 
-abstract class CookBookState extends Equatable {
+abstract class CookBookState {
   const CookBookState();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class CookBookEmpty extends CookBookState {
-  @override
-  List<Object?> get props => [];
+  const CookBookEmpty();
 }
 
 class CookBookLoading extends CookBookState {
-  @override
-  List<Object?> get props => [];
+  const CookBookLoading();
 }
 
 class CookBookLoaded extends CookBookState {
   final CookBook cookBook;
 
-  CookBookLoaded(this.cookBook);
-
-  @override
-  List<Object?> get props => [cookBook];
+  const CookBookLoaded(this.cookBook);
 }
 
 class CookBookError extends CookBookState {
   final String message;
 
-  CookBookError({required this.message});
-
-  @override
-  List<Object?> get props => [message];
+  const CookBookError({required this.message});
 }
