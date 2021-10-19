@@ -2,6 +2,8 @@ import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/book.dart';
 import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
+import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
+import 'package:cook_book_fat_killers/favourites/bloc/favourites_cubit.dart';
 import 'package:cook_book_fat_killers/home_screen/cookbook_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,26 +27,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(_getAppBarTitle()),
-        actions: _selectedBottomMenuIndex != 2
-            ? [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, AppNavigation.FILTER);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Icon(Icons.filter_alt_outlined),
-                  ),
-                )
-              ]
-            : [],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CookBookCubit>(
+            create: (context) => sl<CookBookCubit>()..loadCookBook(topChoice)),
+        BlocProvider<FavouritesCubit>(
+            create: (context) => sl<FavouritesCubit>()..loadFavourites()),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(_getAppBarTitle()),
+          actions: _selectedBottomMenuIndex != 2
+              ? [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppNavigation.FILTER);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Icon(Icons.filter_alt_outlined),
+                    ),
+                  )
+                ]
+              : [],
+        ),
+        body: _getBody(), // This trailing
+        bottomNavigationBar: _buildBottomNavigationBar(),
       ),
-      body: _getBody(), // This trailing
-      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
@@ -88,17 +98,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getHomeTabContent() {
-    return BlocProvider<CookBookCubit>(
-      create: (context) => CookBookCubit(booksRepository: sl<BooksRepository>())
-        ..loadCookBook(topChoice),
-      child: CookbookWidget(),
-    );
+    return CookbookWidget(false);
   }
 
   Widget _getFavouritesTabContent() {
-    return Center(
-      child: Text('Favourites screen'),
-    );
+    return CookbookWidget(true);
   }
 
   Widget _getHelpTabContent() {

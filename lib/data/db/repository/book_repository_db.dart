@@ -210,6 +210,24 @@ class BooksRepositoryDb extends BooksRepository {
     // } else {
     //   return Right(CookBook(recipes: recipes, isFree: true, isFiltered: false));
     // }
-    return Right(CookBook(recipes: recipes, isFree: true, isFiltered: false));
+    return Right(CookBook(recipes: recipes));
+  }
+
+  @override
+  Future<Either<Failure, CookBook>> getFavourites(
+      {required List<int> favouritesNumbers}) async {
+    await init();
+    final List<Map<String, dynamic>> recipesMapList = await _database!.query(
+        _recipesTable,
+        // where: '$_columnRecipeId = ?',
+        where: '$_columnRecipeId IN (${favouritesNumbers.join(', ')})'
+    );
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('Favourites: $map');
+    });
+    List<RecipeModel> recipes = recipesList.map((e) => e.toDomain()).toList();
+    return Right(CookBook(recipes: recipes));
   }
 }

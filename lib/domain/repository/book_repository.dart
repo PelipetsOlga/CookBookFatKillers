@@ -5,4 +5,7 @@ import 'package:dartz/dartz.dart';
 abstract class BooksRepository {
   Future<Either<Failure, CookBook>> getCookBook(
       {required TopChoiceType topChoiceType});
+
+  Future<Either<Failure, CookBook>> getFavourites(
+      {required List<int> favouritesNumbers});
 }
