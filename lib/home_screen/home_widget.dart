@@ -1,8 +1,6 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
-import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
 import 'package:cook_book_fat_killers/favourites/bloc/favourites_cubit.dart';
 import 'package:cook_book_fat_killers/home_screen/cookbook_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +20,9 @@ class _HomePageState extends State<HomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedBottomMenuIndex = index;
+      if (_selectedBottomMenuIndex == 1) {
+        sl<FavouritesCubit>().loadFavourites();
+      }
     });
   }
 

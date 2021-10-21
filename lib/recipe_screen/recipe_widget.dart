@@ -1,21 +1,22 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
+import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
+import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
+import 'package:cook_book_fat_killers/recipe_screen/bloc/recipe_cubit.dart';
+import 'package:cook_book_fat_killers/recipe_screen/bloc/recipe_state.dart';
 import 'package:cook_book_fat_killers/widgets/base_widgets.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../stubs.dart';
 
-class RecipeWidget extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _RecipeWidgetState();
-  }
-}
-
-class _RecipeWidgetState extends State<RecipeWidget> {
+class RecipeWidget extends StatelessWidget {
   late RecipeModel _recipeModel;
+  final UserRepository _userRepository = sl<UserRepository>();
+  late RecipeCubit _recipeCubit =
+      RecipeCubit(userRepository: _userRepository, recipeModel: _recipeModel);
 
   @override
   Widget build(BuildContext context) {
@@ -23,35 +24,61 @@ class _RecipeWidgetState extends State<RecipeWidget> {
         .cast<RecipeScreenBundle>(ModalRoute.of(context)?.settings.arguments);
     _recipeModel = arguments.recipeModel;
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(_recipeModel.eatingType.title.toUpperCase()),
-        backgroundColor: getDomainColor(_recipeModel.eatingType.eatingType),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.favorite_border),
-          )
-        ],
-      ),
-      body: Container(
-        color: colorMainBackground,
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 16),
-              _getTitle(),
-              _getImage(),
-              _getEatingType(),
-              _getWeights(),
-              _ingridients(),
-              _cookingSteps(),
-            ],
+    return BlocProvider(
+      create: (context) => _recipeCubit..loadRecipe(),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(_recipeModel.eatingType.title.toUpperCase()),
+          backgroundColor: getDomainColor(_recipeModel.eatingType.eatingType),
+          actions: [
+            BlocBuilder<RecipeCubit, RecipeState>(
+              builder: (context, state) {
+                if (state is RecipeStateInitial) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Icon(Icons.favorite_border),
+                  );
+                } else if (state is RecipeStateLoaded) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: IconButton(
+                      icon: Icon(state.isFavourite
+                          ? Icons.favorite
+                          : Icons.favorite_border),
+                      onPressed: () {
+                        _recipeCubit.toggleFavourite();
+                      },
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            )
+          ],
+        ),
+        body: Container(
+          color: colorMainBackground,
+          width: double.infinity,
+          height: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 16),
+                _getTitle(),
+                _getImage(),
+                _getEatingType(),
+                _getWeights(),
+                _ingridients(),
+                _cookingSteps(),
+              ],
+            ),
           ),
         ),
       ),
