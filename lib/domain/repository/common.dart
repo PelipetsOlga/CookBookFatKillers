@@ -1,0 +1,1 @@
+enum SortedByType { alphabet, eatingType }
