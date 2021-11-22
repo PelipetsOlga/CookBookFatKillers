@@ -2,6 +2,7 @@ import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
+import 'package:cook_book_fat_killers/favourites/bloc/favourites_bloc.dart';
 import 'package:cook_book_fat_killers/recipe_screen/bloc/recipe_cubit.dart';
 import 'package:cook_book_fat_killers/recipe_screen/bloc/recipe_state.dart';
 import 'package:cook_book_fat_killers/widgets/base_widgets.dart';
@@ -15,8 +16,10 @@ import '../stubs.dart';
 class RecipeWidget extends StatelessWidget {
   late RecipeModel _recipeModel;
   final UserRepository _userRepository = sl<UserRepository>();
-  late RecipeCubit _recipeCubit =
-      RecipeCubit(userRepository: _userRepository, recipeModel: _recipeModel);
+  late RecipeCubit _recipeCubit = RecipeCubit(
+      userRepository: _userRepository,
+      recipeModel: _recipeModel,
+      favouritesBloc: sl<FavouritesBloc>());
 
   @override
   Widget build(BuildContext context) {

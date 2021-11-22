@@ -1,12 +1,12 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:cook_book_fat_killers/favourites/bloc/favourites_cubit.dart';
+import 'package:cook_book_fat_killers/favourites/bloc/favourites_bloc.dart';
 import 'package:cook_book_fat_killers/home_screen/cookbook_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/home_cubit.dart';
+import 'bloc/home_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedBottomMenuIndex = index;
       if (_selectedBottomMenuIndex == 1) {
-        sl<FavouritesCubit>().loadFavourites();
+        sl<FavouritesBloc>().loadFavourites();
       }
     });
   }
@@ -30,10 +30,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CookBookCubit>(
-            create: (context) => sl<CookBookCubit>()..loadCookBook(topChoice)),
-        BlocProvider<FavouritesCubit>(
-            create: (context) => sl<FavouritesCubit>()..loadFavourites()),
+        BlocProvider<HomeBloc>(
+            create: (context) =>
+                sl<HomeBloc>()..add(HomeEventSearch(topChoice))),
+        BlocProvider<FavouritesBloc>(
+            create: (context) => sl<FavouritesBloc>()..loadFavourites()),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -99,11 +100,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getHomeTabContent() {
-    return CookbookWidget(false);
+    return CookbookWidget(isFavourites: false);
   }
 
   Widget _getFavouritesTabContent() {
-    return CookbookWidget(true);
+    return CookbookWidget(isFavourites: true);
   }
 
   Widget _getHelpTabContent() {

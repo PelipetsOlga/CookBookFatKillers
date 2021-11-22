@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 abstract class UserRepository {
   Future<List<int>> getFavouriteRecipes();
 

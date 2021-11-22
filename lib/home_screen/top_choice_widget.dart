@@ -1,8 +1,8 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:cook_book_fat_killers/home_screen/bloc/home_cubit.dart';
+import 'package:cook_book_fat_killers/home_screen/bloc/home_bloc.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cook_book_fat_killers/di/di.dart';
 
 class TopChoiceWidget extends StatefulWidget {
   @override
@@ -77,8 +77,7 @@ class _TopChoiceWidgetState extends State<TopChoiceWidget> {
         onSelected: (bool selected) {
           setState(() {
             _topChoiceType = choiceType;
-            BlocProvider.of<CookBookCubit>(context)
-              ..loadCookBook(_topChoiceType);
+            sl<HomeBloc>()..add(HomeEvent.search(_topChoiceType));
           });
         });
   }

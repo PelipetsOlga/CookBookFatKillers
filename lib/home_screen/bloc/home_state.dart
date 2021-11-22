@@ -1,25 +1,10 @@
-import 'package:cook_book_fat_killers/domain/models/book.dart';
+part of 'home_bloc.dart';
 
-abstract class CookBookState {
-  const CookBookState();
-}
-
-class CookBookEmpty extends CookBookState {
-  const CookBookEmpty();
-}
-
-class CookBookLoading extends CookBookState {
-  const CookBookLoading();
-}
-
-class CookBookLoaded extends CookBookState {
-  final CookBook cookBook;
-
-  const CookBookLoaded(this.cookBook);
-}
-
-class CookBookError extends CookBookState {
-  final String message;
-
-  const CookBookError({required this.message});
+@freezed
+class HomeState with _$HomeState{
+  const factory HomeState.initial() = HomeStateInitial;
+  const factory HomeState.empty() = HomeStateEmpty;
+  const factory HomeState.loading() = HomeStateLoading;
+  const factory HomeState.error({required String message}) = HomeStateError;
+  const factory HomeState.loaded({required CookBook cookBook}) = HomeStateLoaded;
 }

@@ -1,22 +1,29 @@
+import 'package:cook_book_fat_killers/domain/models/book.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
+import 'package:cook_book_fat_killers/favourites/bloc/favourites_bloc.dart';
+import 'package:cook_book_fat_killers/home_screen/bloc/home_bloc.dart';
 import 'package:cook_book_fat_killers/recipe_screen/bloc/recipe_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecipeCubit extends Cubit<RecipeState> {
   final UserRepository userRepository;
   final RecipeModel recipeModel;
+  final FavouritesBloc favouritesBloc;
 
-  RecipeCubit({required this.userRepository, required this.recipeModel})
-      : super(RecipeStateInitial(recipeModel));
+  RecipeCubit({
+    required this.userRepository,
+    required this.recipeModel,
+    required this.favouritesBloc
+  }) : super(RecipeStateInitial(recipeModel));
 
   void loadRecipe() async {
     if (state is RecipeStateLoading) return;
     final initialState = state;
 
-    emit(
-        new RecipeStateLoading(initialState.recipeModel, initialState.isFavourite));
-    await Future.delayed(Duration(seconds: 2));
+    emit(new RecipeStateLoading(
+        initialState.recipeModel, initialState.isFavourite));
+    // await Future.delayed(Duration(seconds: 2));
 
     final favoritesNumbers = await userRepository.getFavouriteRecipes();
     final isRecipeFavourite = favoritesNumbers.contains(recipeModel.recipeId);
@@ -28,9 +35,9 @@ class RecipeCubit extends Cubit<RecipeState> {
     if (state is RecipeStateLoading) return;
     final initialState = state;
 
-    emit(
-        new RecipeStateLoading(initialState.recipeModel, initialState.isFavourite));
-    await Future.delayed(Duration(seconds: 2));
+    emit(new RecipeStateLoading(
+        initialState.recipeModel, initialState.isFavourite));
+    // await Future.delayed(Duration(seconds: 2));
     if (initialState.isFavourite) {
       await userRepository.removeFavouriteRecipe(recipeModel.recipeId);
     } else {
@@ -39,8 +46,9 @@ class RecipeCubit extends Cubit<RecipeState> {
 
     final favoritesNumbers = await userRepository.getFavouriteRecipes();
     final isRecipeFavouriteNow =
-        favoritesNumbers.contains(recipeModel.recipeId);
+    favoritesNumbers.contains(recipeModel.recipeId);
 
     emit(new RecipeStateLoaded(recipeModel, isRecipeFavouriteNow));
+    favouritesBloc.add(HomeEvent.search(TopChoiceType.all));//todo fix
   }
 }
