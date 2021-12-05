@@ -1,15 +1,15 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
-import 'package:cook_book_fat_killers/recipe_screen/bloc/bloc.dart';
 import 'package:cook_book_fat_killers/widgets/base_widgets.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 
-import '../stubs.dart';
+import '../../stubs.dart';
+import 'bloc/bloc.dart';
 
 class RecipeWidget extends StatelessWidget {
-  final RecipeBloc bloc = RecipeBloc();
+  final bloc = RecipeBloc();
   late RecipeModel _recipeModel;
 
   @override

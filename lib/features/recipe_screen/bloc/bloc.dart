@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
-import 'package:cook_book_fat_killers/home_screen/bloc/home_bloc.dart';
+import 'package:cook_book_fat_killers/features/home_screen/bloc/home_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'events.dart';
+
 part 'states.dart';
+
 part 'bloc.freezed.dart';
 
 class RecipeBloc {
@@ -18,6 +20,7 @@ class RecipeBloc {
   final _outputStateController = StreamController<RecipeState>();
 
   StreamSink<RecipeEvent> get inputsSink => _inputEventController.sink;
+
   Stream<RecipeState> get outputsStream => _outputStateController.stream;
 
   RecipeBloc() {
@@ -37,9 +40,10 @@ class RecipeBloc {
 
     if (event is RecipeEventToggle) {
       final recipeModel = event.recipeModel;
-      _emit( RecipeState.loading());
+      _emit(RecipeState.loading());
       final selected = event.selected;
       await repository.toggle(recipeModel.recipeId, selected);
+      sl<HomeBloc>().reload();
       _emit(RecipeState.loaded(recipe: recipeModel, isFavourites: selected));
       await sl<HomeBloc>().reloadFavourites();
     }

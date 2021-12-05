@@ -503,11 +503,13 @@ class _$HomeStateTearOff {
   HomeStateLoaded loaded(
       {required CookBook cookBook,
       required TopChoiceType topChoiceType,
-      required bool isFavourites}) {
+      required bool isFavourites,
+      required CalorieMenuBaseModel calorieMenu}) {
     return HomeStateLoaded(
       cookBook: cookBook,
       topChoiceType: topChoiceType,
       isFavourites: isFavourites,
+      calorieMenu: calorieMenu,
     );
   }
 }
@@ -531,8 +533,8 @@ mixin _$HomeState {
     required TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)
         error,
-    required TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)
+    required TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -544,8 +546,8 @@ mixin _$HomeState {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -557,8 +559,8 @@ mixin _$HomeState {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
     required TResult orElse(),
   }) =>
@@ -714,8 +716,8 @@ class _$HomeStateInitial implements HomeStateInitial {
     required TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)
         error,
-    required TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)
+    required TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)
         loaded,
   }) {
     return initial(topChoiceType, isFavourites);
@@ -730,8 +732,8 @@ class _$HomeStateInitial implements HomeStateInitial {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
   }) {
     return initial?.call(topChoiceType, isFavourites);
@@ -746,8 +748,8 @@ class _$HomeStateInitial implements HomeStateInitial {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
     required TResult orElse(),
   }) {
@@ -896,8 +898,8 @@ class _$HomeStateEmpty implements HomeStateEmpty {
     required TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)
         error,
-    required TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)
+    required TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)
         loaded,
   }) {
     return empty(topChoiceType, isFavourites);
@@ -912,8 +914,8 @@ class _$HomeStateEmpty implements HomeStateEmpty {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
   }) {
     return empty?.call(topChoiceType, isFavourites);
@@ -928,8 +930,8 @@ class _$HomeStateEmpty implements HomeStateEmpty {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
     required TResult orElse(),
   }) {
@@ -1078,8 +1080,8 @@ class _$HomeStateLoading implements HomeStateLoading {
     required TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)
         error,
-    required TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)
+    required TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)
         loaded,
   }) {
     return loading(topChoiceType, isFavourites);
@@ -1094,8 +1096,8 @@ class _$HomeStateLoading implements HomeStateLoading {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
   }) {
     return loading?.call(topChoiceType, isFavourites);
@@ -1110,8 +1112,8 @@ class _$HomeStateLoading implements HomeStateLoading {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
     required TResult orElse(),
   }) {
@@ -1272,8 +1274,8 @@ class _$HomeStateError implements HomeStateError {
     required TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)
         error,
-    required TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)
+    required TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)
         loaded,
   }) {
     return error(message, topChoiceType, isFavourites);
@@ -1288,8 +1290,8 @@ class _$HomeStateError implements HomeStateError {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
   }) {
     return error?.call(message, topChoiceType, isFavourites);
@@ -1304,8 +1306,8 @@ class _$HomeStateError implements HomeStateError {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
     required TResult orElse(),
   }) {
@@ -1381,7 +1383,10 @@ abstract class $HomeStateLoadedCopyWith<$Res>
       _$HomeStateLoadedCopyWithImpl<$Res>;
   @override
   $Res call(
-      {CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites});
+      {CookBook cookBook,
+      TopChoiceType topChoiceType,
+      bool isFavourites,
+      CalorieMenuBaseModel calorieMenu});
 }
 
 /// @nodoc
@@ -1399,6 +1404,7 @@ class _$HomeStateLoadedCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
     Object? cookBook = freezed,
     Object? topChoiceType = freezed,
     Object? isFavourites = freezed,
+    Object? calorieMenu = freezed,
   }) {
     return _then(HomeStateLoaded(
       cookBook: cookBook == freezed
@@ -1413,6 +1419,10 @@ class _$HomeStateLoadedCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value.isFavourites
           : isFavourites // ignore: cast_nullable_to_non_nullable
               as bool,
+      calorieMenu: calorieMenu == freezed
+          ? _value.calorieMenu
+          : calorieMenu // ignore: cast_nullable_to_non_nullable
+              as CalorieMenuBaseModel,
     ));
   }
 }
@@ -1423,7 +1433,8 @@ class _$HomeStateLoaded implements HomeStateLoaded {
   const _$HomeStateLoaded(
       {required this.cookBook,
       required this.topChoiceType,
-      required this.isFavourites});
+      required this.isFavourites,
+      required this.calorieMenu});
 
   @override
   final CookBook cookBook;
@@ -1431,10 +1442,12 @@ class _$HomeStateLoaded implements HomeStateLoaded {
   final TopChoiceType topChoiceType;
   @override
   final bool isFavourites;
+  @override
+  final CalorieMenuBaseModel calorieMenu;
 
   @override
   String toString() {
-    return 'HomeState.loaded(cookBook: $cookBook, topChoiceType: $topChoiceType, isFavourites: $isFavourites)';
+    return 'HomeState.loaded(cookBook: $cookBook, topChoiceType: $topChoiceType, isFavourites: $isFavourites, calorieMenu: $calorieMenu)';
   }
 
   @override
@@ -1447,12 +1460,14 @@ class _$HomeStateLoaded implements HomeStateLoaded {
             (identical(other.topChoiceType, topChoiceType) ||
                 other.topChoiceType == topChoiceType) &&
             (identical(other.isFavourites, isFavourites) ||
-                other.isFavourites == isFavourites));
+                other.isFavourites == isFavourites) &&
+            (identical(other.calorieMenu, calorieMenu) ||
+                other.calorieMenu == calorieMenu));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, cookBook, topChoiceType, isFavourites);
+  int get hashCode => Object.hash(
+      runtimeType, cookBook, topChoiceType, isFavourites, calorieMenu);
 
   @JsonKey(ignore: true)
   @override
@@ -1471,11 +1486,11 @@ class _$HomeStateLoaded implements HomeStateLoaded {
     required TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)
         error,
-    required TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)
+    required TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)
         loaded,
   }) {
-    return loaded(cookBook, topChoiceType, isFavourites);
+    return loaded(cookBook, topChoiceType, isFavourites, calorieMenu);
   }
 
   @override
@@ -1487,11 +1502,11 @@ class _$HomeStateLoaded implements HomeStateLoaded {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
   }) {
-    return loaded?.call(cookBook, topChoiceType, isFavourites);
+    return loaded?.call(cookBook, topChoiceType, isFavourites, calorieMenu);
   }
 
   @override
@@ -1503,13 +1518,13 @@ class _$HomeStateLoaded implements HomeStateLoaded {
     TResult Function(
             String message, TopChoiceType topChoiceType, bool isFavourites)?
         error,
-    TResult Function(
-            CookBook cookBook, TopChoiceType topChoiceType, bool isFavourites)?
+    TResult Function(CookBook cookBook, TopChoiceType topChoiceType,
+            bool isFavourites, CalorieMenuBaseModel calorieMenu)?
         loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(cookBook, topChoiceType, isFavourites);
+      return loaded(cookBook, topChoiceType, isFavourites, calorieMenu);
     }
     return orElse();
   }
@@ -1559,13 +1574,15 @@ abstract class HomeStateLoaded implements HomeState {
   const factory HomeStateLoaded(
       {required CookBook cookBook,
       required TopChoiceType topChoiceType,
-      required bool isFavourites}) = _$HomeStateLoaded;
+      required bool isFavourites,
+      required CalorieMenuBaseModel calorieMenu}) = _$HomeStateLoaded;
 
   CookBook get cookBook;
   @override
   TopChoiceType get topChoiceType;
   @override
   bool get isFavourites;
+  CalorieMenuBaseModel get calorieMenu;
   @override
   @JsonKey(ignore: true)
   $HomeStateLoadedCopyWith<HomeStateLoaded> get copyWith =>

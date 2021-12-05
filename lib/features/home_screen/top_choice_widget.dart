@@ -1,8 +1,9 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:cook_book_fat_killers/home_screen/bloc/home_bloc.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
+
+import 'bloc/home_bloc.dart';
 
 final _choices = [
   TopChoiceType.all,

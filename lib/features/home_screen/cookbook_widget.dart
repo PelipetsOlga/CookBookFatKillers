@@ -1,9 +1,9 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:cook_book_fat_killers/home_screen/top_choice_widget.dart';
+import 'package:cook_book_fat_killers/domain/models/calorie.dart';
+import 'package:cook_book_fat_killers/features/home_screen/top_choice_widget.dart';
 import 'package:cook_book_fat_killers/widgets/base_widgets.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
-import '../widgets/base_widgets.dart';
 
 import 'bloc/home_bloc.dart';
 
@@ -21,12 +21,12 @@ class CookbookWidget extends StatelessWidget {
             : Text('empty recipes list'),
         error: (message, topChoice, isFavourites) => Text(message),
         loading: (_, isFavourites) => _loadingIndicator(),
-        loaded: (result, topChoice, isFavourites) =>
-            _cookBookView(result, topChoice, isFavourites));
+        loaded: (result, topChoice, isFavourites, calorieMenu) =>
+            _cookBookView(result, topChoice, isFavourites, calorieMenu));
   }
 
-  Widget _cookBookView(
-      CookBook cookBook, TopChoiceType topChoiceType, bool isFavorites) {
+  Widget _cookBookView(CookBook cookBook, TopChoiceType topChoiceType,
+      bool isFavorites, CalorieMenuBaseModel calorieMenu) {
     return Container(
       color: colorMainBackground,
       width: double.infinity,
@@ -34,20 +34,25 @@ class CookbookWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _getCookBookViewContent(cookBook, topChoiceType, isFavorites),
+        children: _getCookBookViewContent(
+            cookBook, topChoiceType, isFavorites, calorieMenu),
       ),
     );
   }
 
   List<Widget> _getCookBookViewContent(
-      CookBook cookBook, TopChoiceType topChoiceType, bool isFavorites) {
+      CookBook cookBook,
+      TopChoiceType topChoiceType,
+      bool isFavorites,
+      CalorieMenuBaseModel calorieMenu) {
     List<Widget> list = [];
     if (!isFavorites) list.add(TopChoiceWidget(topChoiceType: topChoiceType));
     list.add(Expanded(
       child: ListView.builder(
         itemCount: cookBook.recipes.length,
         itemBuilder: (context, index) {
-          return buildHomeListTile(context, cookBook.recipes[index]);
+          return buildHomeListTile(
+              context, cookBook.recipes[index], calorieMenu);
         },
       ),
     ));

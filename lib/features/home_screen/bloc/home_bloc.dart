@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cook_book_fat_killers/common/error/failure.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/book.dart';
+import 'package:cook_book_fat_killers/domain/models/calorie.dart';
 import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -71,6 +72,8 @@ class HomeBloc {
     final failureOrCookBook =
         await booksRepository.getCookBook(topChoiceType: _topChoiceType);
 
+    final calorieMenu = await userRepository.getCalorieMenu();
+
     failureOrCookBook.fold(
         (failure) => _emit(HomeStateError(
             message: _mapFailureToMessage(failure),
@@ -83,7 +86,7 @@ class HomeBloc {
                 cookBook: results,
                 topChoiceType: _topChoiceType,
                 isFavourites: false,
-              )));
+                calorieMenu: calorieMenu)));
   }
 
   _loadFavourites() async {
@@ -95,6 +98,8 @@ class HomeBloc {
 
     final failureOrCookBook = await booksRepository.getFavourites(
         favouritesNumbers: favouritesNumbers);
+
+    final calorieMenu = await userRepository.getCalorieMenu();
 
     failureOrCookBook.fold(
         (failure) => _emit(HomeStateError(
@@ -108,6 +113,7 @@ class HomeBloc {
                 cookBook: results,
                 topChoiceType: _topChoiceType,
                 isFavourites: true,
+                calorieMenu: calorieMenu,
               )));
   }
 

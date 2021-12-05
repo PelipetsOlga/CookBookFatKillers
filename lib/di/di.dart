@@ -2,8 +2,7 @@ import 'package:cook_book_fat_killers/data/db/repository/book_repository_db.dart
 import 'package:cook_book_fat_killers/data/user/user_repo_pref.dart';
 import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
-import 'package:cook_book_fat_killers/home_screen/bloc/home_bloc.dart';
-import 'package:cook_book_fat_killers/recipe_screen/bloc/bloc.dart';
+import 'package:cook_book_fat_killers/features/home_screen/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

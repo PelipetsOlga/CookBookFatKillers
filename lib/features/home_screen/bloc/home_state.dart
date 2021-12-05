@@ -20,5 +20,6 @@ class HomeState with _$HomeState {
     required CookBook cookBook,
     required TopChoiceType topChoiceType,
     required bool isFavourites,
+    required CalorieMenuBaseModel calorieMenu
   }) = HomeStateLoaded;
 }

@@ -1,7 +1,7 @@
 import 'package:cook_book_fat_killers/common/data_models.dart';
 import 'package:flutter/material.dart';
 
-import '../stubs.dart';
+import '../../stubs.dart';
 
 class FilterWidget extends StatefulWidget {
   @override

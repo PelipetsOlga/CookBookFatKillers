@@ -1,4 +1,5 @@
 import 'package:cook_book_fat_killers/common/nav.dart';
+import 'package:cook_book_fat_killers/domain/models/calorie.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,11 @@ Widget buildEatingTab(String eatingTitle, Color backgroundColor,
   );
 }
 
-ListTile buildHomeListTile(BuildContext context, RecipeModel recipeModel) {
+ListTile buildHomeListTile(
+    BuildContext context, RecipeModel recipeModel, CalorieMenuBaseModel calorieMenu) {
+  String mealQuantity =
+      recipeModel.mealQuantityModel.quantities[calorieMenu] ?? '';
+
   return ListTile(
     title: GestureDetector(
       onTap: () {
@@ -46,11 +51,9 @@ ListTile buildHomeListTile(BuildContext context, RecipeModel recipeModel) {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                buildEatingTab(
-                    recipeModel.eatingType.title,
+                buildEatingTab(recipeModel.eatingType.title,
                     getDomainColor(recipeModel.eatingType.eatingType),
-                    padding: 4,
-                    fontSize: 12),
+                    padding: 4, fontSize: 12),
                 Container(
                   width: double.infinity,
                   child: Column(
@@ -63,7 +66,7 @@ ListTile buildHomeListTile(BuildContext context, RecipeModel recipeModel) {
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '1600 - 200г',
+                        '${calorieMenu.calories} - $mealQuantity',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
