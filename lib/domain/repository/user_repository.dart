@@ -1,7 +1,7 @@
 abstract class UserRepository {
   Future<List<int>> getFavouriteRecipes();
 
-  Future<void> saveFavouriteRecipe(int recipeId);
+  Future<bool> isFavourites(int recipeId);
 
-  Future<void> removeFavouriteRecipe(int recipeId);
+  toggle(int number, bool selected);
 }
