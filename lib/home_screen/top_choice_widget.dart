@@ -1,38 +1,34 @@
 import 'package:cook_book_fat_killers/domain/models/book.dart';
-import 'package:cook_book_fat_killers/home_screen/bloc/home_cubit.dart';
+import 'package:cook_book_fat_killers/home_screen/bloc/home_bloc.dart';
 import 'package:cook_book_fat_killers/widgets/domain_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cook_book_fat_killers/di/di.dart';
 
-class TopChoiceWidget extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _TopChoiceWidgetState();
-  }
-}
+final _choices = [
+  TopChoiceType.all,
+  TopChoiceType.breakfast,
+  TopChoiceType.lunch,
+  TopChoiceType.dinner,
+  TopChoiceType.supper,
+  TopChoiceType.free
+];
 
-class _TopChoiceWidgetState extends State<TopChoiceWidget> {
-  TopChoiceType _topChoiceType = TopChoiceType.all;
+class TopChoiceWidget extends StatelessWidget {
+  final TopChoiceType topChoiceType;
+
+  TopChoiceWidget({required this.topChoiceType});
 
   @override
   Widget build(BuildContext context) {
-    final choices = [
-      TopChoiceType.all,
-      TopChoiceType.breakfast,
-      TopChoiceType.lunch,
-      TopChoiceType.dinner,
-      TopChoiceType.supper,
-      TopChoiceType.free
-    ];
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-        child: Wrap(children: choices.map((e) => _getChoiceChip(e)).toList()),
+        child: Wrap(children: _choices.map((e) => _getChoiceChip(e)).toList()),
       ),
     );
   }
 
-  ChoiceChip _getChoiceChip(TopChoiceType choiceType) {
+  Widget _getChoiceChip(TopChoiceType choiceType) {
     late Color background;
     late Color selectedBackground;
     late String label;
@@ -63,23 +59,20 @@ class _TopChoiceWidgetState extends State<TopChoiceWidget> {
       label = 'Безкоштовні';
     }
 
-    return ChoiceChip(
-        selected: _topChoiceType == choiceType,
+    return FilterChip(
+        selected: topChoiceType == choiceType,
         label: Text(label),
+        checkmarkColor: Colors.white,
         labelStyle: TextStyle(
-          color: _topChoiceType == choiceType ? Colors.black : Colors.white,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: _topChoiceType == choiceType ? 20 : 14,
+          fontSize: 14,
         ),
         backgroundColor: background,
         selectedColor: selectedBackground,
-        elevation: 10,
+        elevation: 8,
         onSelected: (bool selected) {
-          setState(() {
-            _topChoiceType = choiceType;
-            BlocProvider.of<CookBookCubit>(context)
-              ..loadCookBook(_topChoiceType);
-          });
+          sl<HomeBloc>().inputsSink.add(HomeEvent.topChoiceChanged(choiceType));
         });
   }
 }

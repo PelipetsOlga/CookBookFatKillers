@@ -1,25 +1,24 @@
-import 'package:cook_book_fat_killers/domain/models/book.dart';
+part of 'home_bloc.dart';
 
-abstract class CookBookState {
-  const CookBookState();
-}
+@freezed
+class HomeState with _$HomeState {
+  const factory HomeState.initial(TopChoiceType topChoiceType,
+      {required bool isFavourites}) = HomeStateInitial;
 
-class CookBookEmpty extends CookBookState {
-  const CookBookEmpty();
-}
+  const factory HomeState.empty(TopChoiceType topChoiceType,
+      {required bool isFavourites}) = HomeStateEmpty;
 
-class CookBookLoading extends CookBookState {
-  const CookBookLoading();
-}
+  const factory HomeState.loading(TopChoiceType topChoiceType,
+      {required bool isFavourites}) = HomeStateLoading;
 
-class CookBookLoaded extends CookBookState {
-  final CookBook cookBook;
+  const factory HomeState.error(
+      {required String message,
+      required TopChoiceType topChoiceType,
+      required bool isFavourites}) = HomeStateError;
 
-  const CookBookLoaded(this.cookBook);
-}
-
-class CookBookError extends CookBookState {
-  final String message;
-
-  const CookBookError({required this.message});
+  const factory HomeState.loaded({
+    required CookBook cookBook,
+    required TopChoiceType topChoiceType,
+    required bool isFavourites,
+  }) = HomeStateLoaded;
 }
