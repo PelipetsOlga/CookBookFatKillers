@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "892008390890",
+    "project_id": "cookbook-fatkillers",
+    "storage_bucket": "cookbook-fatkillers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892008390890:android:b212a60ebd4f69aab8b793",
+        "android_client_info": {
+          "package_name": "com.pelipets.cook_book_fat_killers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892008390890-ic8rmtirnohu4u5q2h1gajmr6vrr5a2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpl8j827sTUeq7jysuozLUWgcIDbxA_RM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892008390890-ic8rmtirnohu4u5q2h1gajmr6vrr5a2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

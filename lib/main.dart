@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'di/di.dart' as di;
 
 import 'common/nav.dart';
-import 'data/db/repository/book_repository_db.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,12 +11,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // BooksRepositoryDb repository = BooksRepositoryDb();
 
   @override
   Widget build(BuildContext context) {
-    // repository.mockNewDb().then((_) => print('all is done'));
-    // repository.init().then((_) => print('db is inited'));
 
     return MaterialApp(
       title: 'CookBook from Fat Killers',

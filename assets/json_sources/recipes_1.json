@@ -1,0 +1,22 @@
+{
+  "recipes": [
+    {
+      "recipeId": 55,
+      "title": "Test recipe #55",
+      "isFree": "true",
+      "ingredients": "200г творогу|1 яйце",
+      "steps": "змішати|зварити 30 хвилин",
+      "eatingType": "breakfast",
+      "mealQuantity": "180г|200г|220г|240г"
+    },
+    {
+      "recipeId": 66,
+      "title": "Test recipe #66",
+      "isFree": "false",
+      "ingredients": "300г творогу|2 яйце",
+      "steps": "змішати|зварити 40 хвилин",
+      "eatingType": "lunch",
+      "mealQuantity": "185г|205г|225г|245г"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import 'package:cook_book_fat_killers/data/db/mappers/utils.dart';
+import 'package:cook_book_fat_killers/data/utils.dart';
 import 'package:cook_book_fat_killers/domain/models/calorie.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,5 +1,5 @@
 import 'package:cook_book_fat_killers/data/utils.dart';
-import 'package:cook_book_fat_killers/data/db/models/recipe_data.dart';
+import 'package:cook_book_fat_killers/data/json/serializable/recipe_data.dart';
 import 'package:cook_book_fat_killers/domain/models/Ingredients.dart';
 import 'package:cook_book_fat_killers/domain/models/calorie.dart';
 import 'package:cook_book_fat_killers/domain/models/cooking_steps.dart';
@@ -7,13 +7,19 @@ import 'package:cook_book_fat_killers/domain/models/eating_type.dart';
 import 'package:cook_book_fat_killers/domain/models/meal_quantity.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 
+extension RecipesListMapper on RecipesList {
+  List<RecipeModel> toDomain() {
+    return this.recipes.map((e) => e.toDomain()).toList();
+  }
+}
+
 extension Mapper on Recipe {
   RecipeModel toDomain() {
     return RecipeModel(
         recipeId: this.recipeId,
         title: this.title,
-        smallPhotoUrl: this.smallPhotoUrl,
-        bigPhotoUrl: this.bigPhotoUrl,
+        smallPhotoUrl: this.smallPhotoUrl ?? '',
+        bigPhotoUrl: this.bigPhotoUrl ?? '',
         isFavourite: false,
         isFree: toIsFree(),
         ingredientsModel: toIngredientsModel(),
@@ -53,7 +59,7 @@ extension Mapper on Recipe {
     }
     MealQuantityModel mealQuantityModel = MealQuantityModel(
         recipeId: recipeId,
-        additionalFood: additionalFood.isEmpty ? null : additionalFood,
+        additionalFood: additionalFood,
         quantities: {
           CalorieModel1300(): quantities[0],
           CalorieModel1450(): quantities[1],
@@ -66,7 +72,7 @@ extension Mapper on Recipe {
   IngredientsModel toIngredientsModel() {
     List<String> ingredients = this.ingredients.split(firstLevelDivider);
     List<String> ingredientsTags =
-        this.ingredientsTags.split(firstLevelDivider);
+        this.ingredientsTags?.split(firstLevelDivider) ?? [];
     while (ingredientsTags.length < ingredients.length) {
       ingredientsTags.add('');
     }
@@ -80,7 +86,7 @@ extension Mapper on Recipe {
 
   CookingStepsModel toStepsModel() {
     List<String> stepsDescriptions = this.steps.split(firstLevelDivider);
-    List<String> stepsTags = this.stepsTags.split(firstLevelDivider);
+    List<String> stepsTags = this.stepsTags?.split(firstLevelDivider) ?? [];
     return CookingStepsModel(recipeId, stepsDescriptions, stepsTags);
   }
 }

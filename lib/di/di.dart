@@ -1,6 +1,8 @@
 import 'package:cook_book_fat_killers/data/db/repository/book_repository_db.dart';
+import 'package:cook_book_fat_killers/data/json/repository/source_repository_json.dart';
 import 'package:cook_book_fat_killers/data/user/user_repo_pref.dart';
 import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
+import 'package:cook_book_fat_killers/domain/repository/source_repository.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
 import 'package:cook_book_fat_killers/features/home_screen/bloc/home_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -15,6 +17,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(),
+  );
+
+  sl.registerLazySingleton<SourceRepository>(
+        () => SourceRepositoryImpl(),
   );
 
   //Bloc, Cubit

@@ -4,7 +4,9 @@ import 'package:cook_book_fat_killers/common/error/failure.dart';
 import 'package:cook_book_fat_killers/di/di.dart';
 import 'package:cook_book_fat_killers/domain/models/book.dart';
 import 'package:cook_book_fat_killers/domain/models/calorie.dart';
+import 'package:cook_book_fat_killers/domain/models/recipe.dart';
 import 'package:cook_book_fat_killers/domain/repository/book_repository.dart';
+import 'package:cook_book_fat_killers/domain/repository/source_repository.dart';
 import 'package:cook_book_fat_killers/domain/repository/user_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,8 +19,9 @@ part 'home_bloc.freezed.dart';
 part 'top_choice_state.dart';
 
 class HomeBloc {
-  late BooksRepository booksRepository;
-  late UserRepository userRepository;
+  late BooksRepository _booksRepository;
+  late UserRepository _userRepository;
+  late SourceRepository _sourceRepository;
 
   TopChoiceType _topChoiceType = TopChoiceType.all;
   HomeState _state = HomeState.initial(TopChoiceType.all, isFavourites: false);
@@ -33,8 +36,9 @@ class HomeBloc {
   Stream<HomeState> get outputsStream => _outputStateController.stream;
 
   HomeBloc() {
-    booksRepository = sl<BooksRepository>();
-    userRepository = sl<UserRepository>();
+    _booksRepository = sl<BooksRepository>();
+    _userRepository = sl<UserRepository>();
+    _sourceRepository = sl<SourceRepository>();
     _inputEventController.stream.listen(_mapEventToState);
   }
 
@@ -65,14 +69,15 @@ class HomeBloc {
   }
 
   _loadAllRecipes() async {
+
     if (_state is HomeStateLoading) return;
 
     _emit(HomeState.loading(_topChoiceType, isFavourites: _isFavourites));
 
     final failureOrCookBook =
-        await booksRepository.getCookBook(topChoiceType: _topChoiceType);
+        await _booksRepository.getCookBook(topChoiceType: _topChoiceType);
 
-    final calorieMenu = await userRepository.getCalorieMenu();
+    final calorieMenu = await _userRepository.getCalorieMenu();
 
     failureOrCookBook.fold(
         (failure) => _emit(HomeStateError(
@@ -94,12 +99,12 @@ class HomeBloc {
 
     _emit(HomeState.loading(_topChoiceType, isFavourites: _isFavourites));
 
-    final favouritesNumbers = await userRepository.getFavouriteRecipes();
+    final favouritesNumbers = await _userRepository.getFavouriteRecipes();
 
-    final failureOrCookBook = await booksRepository.getFavourites(
+    final failureOrCookBook = await _booksRepository.getFavourites(
         favouritesNumbers: favouritesNumbers);
 
-    final calorieMenu = await userRepository.getCalorieMenu();
+    final calorieMenu = await _userRepository.getCalorieMenu();
 
     failureOrCookBook.fold(
         (failure) => _emit(HomeStateError(

@@ -39,13 +39,6 @@ class _FilterWidgetState extends State<FilterWidget> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            colorFilter: ColorFilter.mode(Colors.white54, BlendMode.lighten),
-            image: AssetImage("assets/base_images/food_background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),

@@ -18,8 +18,10 @@ import 'package:sqflite/sqlite_api.dart';
 
 class BooksRepositoryDb extends BooksRepository {
   Database? _database = null;
+  Database? _devDatabase = null;
 
   String _dbName = 'fat_killers_ua.db';
+  String _db_dev_Name = 'dev_fat_killers_ua.db';
   String _recipesTable = 'recipes';
   String _columnRecipeId = 'recipeId';
   String _columnTitle = 'title';
@@ -51,7 +53,7 @@ class BooksRepositoryDb extends BooksRepository {
         await getApplicationDocumentsDirectory();
 
     String databasePath =
-        path.join(applicationDirectory.path, "fat_killers_ua.db");
+        path.join(applicationDirectory.path, _dbName);
 
     bool dbExists = await io.File(databasePath).exists();
 
@@ -70,17 +72,12 @@ class BooksRepositoryDb extends BooksRepository {
     // await getAllRecipes();
   }
 
-  // Future<List<Recipe>> mockNewDb() async {
-  //   await _initDB();
-  //   return await getAllRecipes();
-  // }
-
   void _createDb(Database db, int version) async {
-    await db.execute('CREATE TABLE [IF NOT EXISTS] $_recipesTable('
+    await db.execute('CREATE TABLE $_recipesTable('
         '$_columnRecipeId INTEGER PRIMARY KEY, $_columnTitle TEXT, '
-        '$_columnSmallPhotoUrl TEXT, $_columnBigPhotoUrl TEXT,'
-        '$_columnIsFree TEXT, $_columnIngredients TEXT, $_columnIngredientsTags TEXT,'
-        '$_columnSteps TEXT, $_columnStepsTags TEXT,'
+        '$_columnSmallPhotoUrl TEXT, $_columnBigPhotoUrl TEXT, '
+        '$_columnIsFree TEXT, $_columnIngredients TEXT, $_columnIngredientsTags TEXT, '
+        '$_columnSteps TEXT, $_columnStepsTags TEXT, '
         '$_columnEatingType TEXT, $_columnMealQuantity TEXT, $_columnAdditionalFood TEXT)');
   }
 
@@ -217,11 +214,10 @@ class BooksRepositoryDb extends BooksRepository {
   Future<Either<Failure, CookBook>> getFavourites(
       {required List<int> favouritesNumbers}) async {
     await init();
-    final List<Map<String, dynamic>> recipesMapList = await _database!.query(
-        _recipesTable,
-        // where: '$_columnRecipeId = ?',
-        where: '$_columnRecipeId IN (${favouritesNumbers.join(', ')})'
-    );
+    final List<Map<String, dynamic>> recipesMapList =
+        await _database!.query(_recipesTable,
+            // where: '$_columnRecipeId = ?',
+            where: '$_columnRecipeId IN (${favouritesNumbers.join(', ')})');
     final List<Recipe> recipesList = [];
     recipesMapList.forEach((map) {
       recipesList.add(Recipe.fromMap(map));
@@ -229,5 +225,41 @@ class BooksRepositoryDb extends BooksRepository {
     });
     List<RecipeModel> recipes = recipesList.map((e) => e.toDomain()).toList();
     return Right(CookBook(recipes: recipes));
+  }
+
+  // ============== Dev Database for updating list of recipes ============
+
+  Future<Database> get devDatabase async {
+    if (_devDatabase != null) return _devDatabase!;
+    _devDatabase = await _initDevDB();
+    return _devDatabase!;
+  }
+
+  Future<Database> _initDevDB() async {
+    io.Directory dir = await getApplicationDocumentsDirectory();
+    String databasePath = path.join(dir.path, _db_dev_Name);
+    this._devDatabase = await openDatabase(databasePath, version: 1, onCreate: _createDb);
+
+    return this._devDatabase!;
+  }
+
+  Future<List<Recipe>> mockNewDb(List<Recipe> mockedRecipes) async {
+    final db = await devDatabase;
+    for (Recipe element in mockedRecipes){
+      await db.insert(_recipesTable, element.toMap());
+    }
+    return await getAllDevRecipes();
+  }
+
+  //READ DEV
+  Future<List<Recipe>> getAllDevRecipes() async {
+    final List<Map<String, dynamic>> recipesMapList =
+    await _devDatabase!.query(_recipesTable);
+    final List<Recipe> recipesList = [];
+    recipesMapList.forEach((map) {
+      recipesList.add(Recipe.fromMap(map));
+      print('getAll DEV Recipes: $map');
+    });
+    return recipesList;
   }
 }

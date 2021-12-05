@@ -1,4 +1,4 @@
-import 'package:cook_book_fat_killers/data/db/mappers/utils.dart';
+import 'package:cook_book_fat_killers/data/utils.dart';
 import 'package:cook_book_fat_killers/data/db/models/recipe_data.dart';
 import 'package:cook_book_fat_killers/domain/models/Ingredients.dart';
 import 'package:cook_book_fat_killers/domain/models/recipe.dart';
